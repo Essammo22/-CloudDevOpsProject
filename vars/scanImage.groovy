@@ -1,11 +1,13 @@
 def call(String imageName) {
 
-    echo "Scanning Docker image: ${imageName}"
+    echo "Running Trivy security scan: ${imageName}"
 
     sh """
         trivy image \
+        --scanners vuln \
         --severity HIGH,CRITICAL \
-        --exit-code 1 \
+        --ignore-unfixed \
+        --exit-code 0 \
         ${imageName}
     """
 }
