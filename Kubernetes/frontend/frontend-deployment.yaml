@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:frontend-v1
+          image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:frontend-1
           ports:
             - containerPort: 3000
           env:
