@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="devops-banner.png" alt="Cloud DevOps Project Banner" width="100%">
+  <img src="CloudDevOps AWS Pipeline Banner.png" alt="Cloud DevOps Project Banner" width="100%">
 </p>
 
 ------------------------------------------------------------------------
