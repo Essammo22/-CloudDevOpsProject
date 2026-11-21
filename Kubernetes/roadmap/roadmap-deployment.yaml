@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: roadmap
-        image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:roadmap-v1
+        image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:roadmap-1
         resources:
             requests:
               cpu: "100m"
