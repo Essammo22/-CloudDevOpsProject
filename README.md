@@ -1,14 +1,6 @@
-# iVolve Cloud DevOps Project
-
-```{=html}
 <p align="center">
-```
-`<strong>`{=html}End-to-End CI/CD and GitOps Deployment on
-AWS`</strong>`{=html}`<br>`{=html} Jenkins · Docker · Amazon ECR ·
-Kubernetes · Amazon EKS · Argo CD
-```{=html}
+  <img src="devops-banner.png" alt="Cloud DevOps Project Banner" width="100%">
 </p>
-```
 
 ------------------------------------------------------------------------
 
