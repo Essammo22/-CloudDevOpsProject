@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:auth-v1
+          image: 185467622030.dkr.ecr.eu-north-1.amazonaws.com/ivolve-repo:auth-2
           ports:
             - containerPort: 5000
           env:
