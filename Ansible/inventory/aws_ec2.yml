@@ -1,0 +1,16 @@
+
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - eu-north-1
+
+filters:
+  tag:Name: ec2-jenkins
+  instance-state-name: running
+
+hostnames:
+  - tag:Name
+
+compose:
+  ansible_host: public_ip_address
+

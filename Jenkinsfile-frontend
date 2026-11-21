@@ -1,0 +1,77 @@
+@Library('ivolve-shared-library') _
+
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'eu-north-1'
+        AWS_ACCOUNT_ID = '185467622030'
+        ECR_REPO = 'ivolve-repo'
+        SERVICE_NAME = 'frontend'
+        IMAGE_TAG = "frontend-${BUILD_NUMBER}"
+        ECR_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}"
+    }
+
+    stages {
+        stage('Build Image') {
+            steps {
+                script {
+                    buildImage(SERVICE_NAME, IMAGE_TAG)
+                }
+            }
+        }
+
+        stage('Scan Image') {
+            steps {
+                script {
+                    scanImage("${SERVICE_NAME}:${IMAGE_TAG}")
+                }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                sh '''
+                    aws ecr get-login-password --region $AWS_REGION |
+                    docker login --username AWS --password-stdin \
+                    $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+                '''
+
+                script {
+                    pushImage("${SERVICE_NAME}:${IMAGE_TAG}", ECR_IMAGE)
+                }
+            }
+        }
+
+        stage('Delete Image Locally') {
+            steps {
+                script {
+                    deleteImage("${SERVICE_NAME}:${IMAGE_TAG}", ECR_IMAGE)
+                }
+            }
+        }
+
+        stage('Update Manifests') {
+            steps {
+                script {
+                    updateManifests(
+                        'Kubernetes/frontend/frontend-deployment.yaml',
+                        'frontend',
+                        ECR_IMAGE
+                    )
+                }
+            }
+        }
+
+        stage('Push Manifests') {
+            steps {
+                script {
+                    pushManifests(
+                        'Kubernetes/frontend/frontend-deployment.yaml',
+                        'master'
+                    )
+                }
+            }
+        }
+    }
+}

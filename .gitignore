@@ -1,0 +1,33 @@
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+**/*.tfvars.json
+**/crash.log
+
+# Private keys and certificates
+**/*.pem
+**/*.key
+
+# Ansible / Python
+**/.venv/
+**/venv/
+**/__pycache__/
+*.pyc
+
+# AWS CLI installed locally
+Terraform/aws/
+
+# Kubernetes credentials
+**/kubeconfig
+**/kubeconfig.*
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/

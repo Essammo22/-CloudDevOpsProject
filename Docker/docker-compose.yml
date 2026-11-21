@@ -1,0 +1,64 @@
+services:
+  frontend:
+    image: frontend:latest
+    container_name: frontend
+    environment:
+      AUTH_SERVICE_URL: http://auth:5000
+      ROADMAP_SERVICE_URL: http://roadmap-service:8080
+    networks:
+      - Devops-net
+    volumes:
+      - frontend-logs:/app/logs
+    ports:
+      - 3000:3000
+  roadmap-service:
+    image: roadmap-service:latest
+    container_name: roadmap-service
+    ports:
+      - 8081:8080
+    networks:
+      - Devops-net
+    volumes:
+      - roadmap-logs:/app/logs
+  auth:
+    image: auth-service:latest
+    container_name: auth-service
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ivolve
+      DB_USER: essam
+      DB_PASSWORD: pass123
+    networks:
+      - Devops-net
+    volumes:
+      - auth-logs:/app/logs
+    ports:
+      - 5000:5000
+    depends_on:
+     - mysql
+        
+  mysql:
+    image: mysql:latest
+    container_name: mysql-app
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: ivolve
+      MYSQL_USER: essam
+      MYSQL_PASSWORD: pass123
+    ports:
+      - 3306:3306
+    networks:
+     - Devops-net
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  frontend-logs:
+  auth-logs:
+  roadmap-logs:
+  mysql-data:
+
+networks:
+  Devops-net:
+    driver: bridge
+        
